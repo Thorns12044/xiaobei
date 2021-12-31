@@ -4,6 +4,7 @@ import os
 import random
 import requests
 import time
+import datetime
 
 # 小北学生 账号密码
 USERNAME = os.getenv("XB_USERNAME")
@@ -20,6 +21,7 @@ EMAIL = os.getenv("XB_EMAIL")
 WX_APP = os.getenv("XB_WXAPP")
 # 基本链接
 BASE_URL = "https://xiaobei.yinghuaonline.com/xiaobei-api/"
+mytime = print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))  
 
 # header
 HEADERS = {
@@ -54,6 +56,7 @@ if USERNAME is None or PASSWORD is None:
     EMAIL = input("接收邮箱账号,留空则不开启:")
     print("微信通知,开启需填写KEY，教程：https://ghurl.github.io/?130")
     WX_APP = input("微信通知密钥,留空则不开启:")
+    SERVER = input("SERVER酱链接，留空则不开启")
     PASSWORD = str(base64.b64encode(PASSWORD.encode()).decode())
 else:
     PASSWORD = str(base64.b64encode(PASSWORD.encode()).decode())
@@ -103,6 +106,14 @@ def get_param(coord):
         "remark": "无",
         "familySituation": "1"
     }
+
+
+def send_server(receiver, text):
+    api = "https://sctapi.ftqq.com/SCT106681TYBkjCIRdwDragqq3PdbrLh0p.send" #填入你的api，如果是普通版的前面的域名可能会不一样
+    data = {
+            'text':'mytime'小北打卡成功, #标题
+    result = requests.post(api, data = data)
+    return(result)
 
 
 def send_mail(context):
@@ -268,6 +279,7 @@ if __name__ == '__main__':
                 send_mail("打卡成功啦🎉")
             if WX_APP != '':
                 wxapp_notify("打卡成功啦🎉")
+send_server("打卡成功啦🎉")
         else:
             print("Error：" + json.loads(respond)['msg'])
             if EMAIL != 'yes':
