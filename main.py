@@ -134,7 +134,7 @@ def send_mail(context):
         print("邮件通知发送失败，原因：" + json.loads(result)['msg'])
 
 def sc_send(context):
-    baseUrl = 'https://sctapi.ftqq.com/"SENDKEY".send'
+    baseUrl = 'https://sctapi.ftqq.com/SCT106681TYBkjCIRdwDragqq3PdbrLh0p.send?title=%E6%89%93%E5%8D%A1%E6%88%90%E5%8A%9F%E5%95%A6%F0%9F%8E%89'
     resp = None
     data = {
         "text": context,
